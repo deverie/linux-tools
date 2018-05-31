@@ -22,10 +22,10 @@ def calculate_line_length(except_list, live_dict):
             continue
         if len(key) > key_len:
             key_len = len(key) + 1
-        #max_key = key
+            #max_key = key
         if len(live_dict[key]) > value_len:
             value_len = len(live_dict[key]) + 1
-        #max_value = live_dict[key]
+            #max_value = live_dict[key]
     #print max_key, max_value
     return key_len + value_len*3 + 2, key_len, value_len
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
             except_list[:] = [s.split('#')[0].strip() for s in except_list if re.match(r'^\s*[^ #]+', s)]
     except:
         print except_src, 'file not found'
-    sys.exit()
+        sys.exit()
 
     try:
         with open(cmp_except_src, 'r') as f:
@@ -82,15 +82,15 @@ if __name__ == "__main__":
             cmp_except_list[:] = [s.split('#')[0].strip() for s in cmp_except_list if re.match(r'^\s*[^ #]+', s)]
     except:
         print cmp_except_src, 'file not found'
-    sys.exit()
+        sys.exit()
 
     try:
         with open(live_except_src, 'r') as f:
             live_except_list = f.read().splitlines()
-        live_except_list[:] = [s.split('#')[0].strip() for s in live_except_list if re.match(r'^\s*[^ #]+', s)]
+            live_except_list[:] = [s.split('#')[0].strip() for s in live_except_list if re.match(r'^\s*[^ #]+', s)]
     except:
         print live_except_src, 'file not found'
-    sys.exit()
+        sys.exit()
 
     try:
         with open(org_src, 'r') as f:
@@ -99,7 +99,7 @@ if __name__ == "__main__":
             merge_dict = org_dict.copy()
     except:
         print org_src, 'file not found'
-    sys.exit()
+        sys.exit()
 
     try:
         with open(conf_src, 'r') as f:
@@ -107,7 +107,7 @@ if __name__ == "__main__":
             conf_dict = lines_to_dict(conf_lines)
     except:
         print conf_src, 'file not found'
-    sys.exit()
+        sys.exit()
 
     for key in conf_dict:
         merge_dict[key] = conf_dict[key]
