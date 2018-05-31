@@ -69,27 +69,27 @@ if __name__ == "__main__":
     merge_dict = {}
 
     try:
-    with open(except_src, 'r') as f:
+        with open(except_src, 'r') as f:
             except_list = f.read().splitlines()
             except_list[:] = [s.split('#')[0].strip() for s in except_list if re.match(r'^\s*[^ #]+', s)]
     except:
-    print except_src, 'file not found'
+        print except_src, 'file not found'
     sys.exit()
 
     try:
-    with open(cmp_except_src, 'r') as f:
+        with open(cmp_except_src, 'r') as f:
             cmp_except_list = f.read().splitlines()
             cmp_except_list[:] = [s.split('#')[0].strip() for s in cmp_except_list if re.match(r'^\s*[^ #]+', s)]
     except:
-    print cmp_except_src, 'file not found'
+        print cmp_except_src, 'file not found'
     sys.exit()
 
     try:
-    with open(live_except_src, 'r') as f:
-        live_except_list = f.read().splitlines()
+        with open(live_except_src, 'r') as f:
+            live_except_list = f.read().splitlines()
         live_except_list[:] = [s.split('#')[0].strip() for s in live_except_list if re.match(r'^\s*[^ #]+', s)]
     except:
-    print live_except_src, 'file not found'
+        print live_except_src, 'file not found'
     sys.exit()
 
     try:
@@ -98,7 +98,7 @@ if __name__ == "__main__":
             org_dict = lines_to_dict(org_lines)
             merge_dict = org_dict.copy()
     except:
-    print org_src, 'file not found'
+        print org_src, 'file not found'
     sys.exit()
 
     try:
@@ -106,7 +106,7 @@ if __name__ == "__main__":
             conf_lines = f.read().splitlines()
             conf_dict = lines_to_dict(conf_lines)
     except:
-    print conf_src, 'file not found'
+        print conf_src, 'file not found'
     sys.exit()
 
     for key in conf_dict:
@@ -134,27 +134,27 @@ if __name__ == "__main__":
     # except that live value is less than org+conf value
     combined = "|".join(cmp_except_list) or "No Compare Exception List"
     for key in diff_list[:]:
-    if re.match(combined, key):
-        if int(merge_dict[key]) < int(live_dict[key]):
-            diff_list.remove(key)
+        if re.match(combined, key):
+            if int(merge_dict[key]) < int(live_dict[key]):
+                diff_list.remove(key)
 
 
     #### print part ####
     if len(diff_list) == 0:
-    pass
+        pass
     else:
         # print different parameters from live value
         print_horizontal_line(n)
         print_columns()
         print_horizontal_line(n)
         for key in diff_list:
-        if key not in conf_dict.keys():
-        conf_dict[key] = ""
+            if key not in conf_dict.keys():
+                conf_dict[key] = ""
             print '%*s %*s %*s %*s\n' % (-key_len, key, -value_len, org_dict[key], -value_len, conf_dict[key], -value_len, live_dict[key])
         print_horizontal_line(n)
         print 'total', len(diff_list)
     if len(live_load_list) == 0:
-    pass
+        pass
     else:
         #print live load parameters
         print_horizontal_line(n)
